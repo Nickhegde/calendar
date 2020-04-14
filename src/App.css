@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+.flex-container{
+  display: flex;
+}
+.disabled{
+  cursor: not-allowed!important;
+}

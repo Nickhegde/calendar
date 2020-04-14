@@ -1,0 +1,28 @@
+.cell-container{
+  padding: 10px;
+  .week-row{
+    justify-content: space-between;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    .day-cell{
+      padding: 5px;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      font-weight: normal;
+      color: #000000;
+      &.disabled{
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      &.focus{
+        background-color: #e22925;
+        font-weight: 600;
+        .date{
+          color: #ffffff;
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
