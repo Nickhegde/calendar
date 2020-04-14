@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameMonth, isSameDay, parse, addDays } from 'date-fns';
+import React, { useState, useEffect } from 'react';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameMonth, isSameDay, subMonths, addDays } from 'date-fns';
 import { STRINGS, ARIALABELS } from 'consts';
 import './Cells.scss'
 
@@ -7,18 +7,52 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
 
   const [toggleDate, setToggleDate] = useState(selectedDate);
 
+  useEffect(() => {
+    if (format(selectedDate, STRINGS.MONTH_FORMAT) !== format(currentDate, STRINGS.MONTH_FORMAT)) {
+      const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${format(endOfMonth(selectedDate), STRINGS.DATE_FORMAT)}`;
+      document.getElementById(newId).focus();
+    }
+  })
+
+
   const onDateClick = (cloneDay) => {
     setToggleDate(cloneDay);
     setSelectedDate(cloneDay);
   }
 
   const onArrowKeyPress = (e) => {
-    const id = e.target.id,
-      idArray = id.split('-'),
-      nextId = Number(idArray[2]) + 1;
-    document.getElementById(`${idArray[0]}-${idArray[1]}-${nextId}`).focus();
+    const key = e.keyCode,
+      id = e.target.id,
+      idArray = id.split('-');
+    let nextId, element;
     console.log("e", e.keyCode);
     console.log("id", e.target.id);
+    switch (key) {
+      case 37: nextId = Number(idArray[2]) - 1;
+        break;
+      case 38: nextId = Number(idArray[2]) - 7;
+        break;
+      case 39: nextId = Number(idArray[2]) + 1;
+        break;
+      case 40: nextId = Number(idArray[2]) + 7;
+        break;
+      default: break;
+    }
+    if (37 <= key <= 40) {
+      element = document.getElementById(`${idArray[0]}-${idArray[1]}-${nextId}`);
+      setFocus(element, nextId);
+    }
+  }
+
+  const setFocus = (element, id) => {
+    if (element) {
+      element.focus();
+    } else {
+      if (id <= 1) {
+        const newDate = subMonths(selectedDate, 1);
+        setSelectedDate(newDate);
+      }
+    }
   }
 
   const cells = (() => {
