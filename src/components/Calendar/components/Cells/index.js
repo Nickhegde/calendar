@@ -82,7 +82,9 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
           <button
             className={`day-cell ${disableFuture || disablePast
               ? 'disabled' : isSameDay(day, selectedDate)
-                ? 'selected' : ''} ${format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? 'focus' : ''}`}
+                ? 'selected' : ''} ${format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? 'focus' : ''}
+                ${format(currentDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? 'highlight-date' : ''}
+                `}
             key={day}
             id={`day-${format(day, STRINGS.MONTH_FORMAT)}-${formattedDate}`}
             onClick={disableFuture || disablePast ? () => { } : () => onDateClick(cloneDay)}
