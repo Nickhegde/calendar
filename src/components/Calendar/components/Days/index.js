@@ -1,5 +1,5 @@
 import React from 'react';
-import { format, addMonths, subMonths, addYears, startOfWeek, addDays } from 'date-fns';
+import { format, startOfWeek, addDays } from 'date-fns';
 import { STRINGS, ARIALABELS } from 'consts';
 import './Days.scss';
 

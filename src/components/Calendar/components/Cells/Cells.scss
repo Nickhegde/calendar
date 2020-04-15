@@ -15,6 +15,9 @@
         opacity: 0.5;
         cursor: not-allowed;
       }
+      &.disabled:focus{
+        outline: none;
+      }
       &.focus{
         background-color: #e22925;
         font-weight: 600;

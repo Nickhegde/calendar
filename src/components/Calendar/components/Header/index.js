@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import { format, addMonths, subMonths, addYears } from 'date-fns';
+import React from 'react';
+import { format, addMonths, subMonths } from 'date-fns';
 import { STRINGS, ARIALABELS } from 'consts';
 import { LeftArrow, RightArrow } from 'assets/images';
 import './Header.scss'
 
-export default function Header({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate } }) {
+export default function Header({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { nextMonthCheck, prevMonthCheck } }) {
 
-  const nextMonthCheck = format(selectedDate, STRINGS.MONTH_YEAR_FORMAT) === format(currentDate, STRINGS.MONTH_YEAR_FORMAT);
-  const prevMonthCheck = format(selectedDate, STRINGS.MONTH_YEAR_FORMAT) === STRINGS.PREV_MONTH_CHECK;
 
   const prevMonth = () => {
     setSelectedDate(subMonths(selectedDate, 1));
