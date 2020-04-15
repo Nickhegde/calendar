@@ -2,4 +2,13 @@
   border: 1px solid black;
   width: 50%;
   margin: auto;
+  .calendar-triangle::before{
+    content: "";
+    position: absolute;
+    border: 8px solid transparent;
+    border-bottom: none;
+    height: 0;
+    width: 1px;
+    border-top-color: lightgrey;
+  }
 }
