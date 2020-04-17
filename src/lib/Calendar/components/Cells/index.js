@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays } from 'date-fns';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays, isAfter, isBefore, isToday } from 'date-fns';
 import { STRINGS, ARIALABELS } from 'lib/consts';
-import './Cells.scss'
+import './Cells.scss';
 
-export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { nextMonthCheck, prevMonthCheck } }) {
+export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture }, monthCheck: { nextMonthCheck, prevMonthCheck } }) {
 
   const [toggleMonth, setToggleMonth] = useState(false);
 
@@ -47,6 +47,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
 
   const setFocusDate = (element, id) => {
     if (element) {
+      if (element.classList.contains('disabled')) return;
       element.focus();
     } else {
       let newDate;
@@ -76,8 +77,8 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, STRINGS.DATE_FORMAT);
         const cloneDay = day;
-        const disableFuture = nextMonthCheck && (format(day, STRINGS.MONTH_FORMAT) === format(addMonths(currentDate, 1), STRINGS.MONTH_FORMAT)),
-          disablePast = prevMonthCheck && (format(day, STRINGS.MONTH_FORMAT) === format(subMonths(selectedDate, 1), STRINGS.MONTH_FORMAT));
+        const disableFuture = blockFuture && isAfter(new Date(cloneDay), blockFuture) && !isToday(new Date(cloneDay)),
+          disablePast = isBefore(new Date(cloneDay), blockPast) && !isToday(new Date(cloneDay));
         days.push(
           <button
             className={`day-cell ${disableFuture || disablePast

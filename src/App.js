@@ -7,12 +7,11 @@ function App() {
     min = '',
     max = '',
     blocked = [];
-  console.log("min", min);
   return (
     <div className="App">
       <Calendar
         dates={{
-          currentDate: date,
+          selectedDate: date,
           min: min,
           max: max,
           blocked: blocked
