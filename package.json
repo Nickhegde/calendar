@@ -1,8 +1,11 @@
 {
   "name": "react-accessible-calendar",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -15,6 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "publish:npm": "SET NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/lib --out-dir dist --copy-files",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,8 +38,11 @@
     ]
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.8.4"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Nickhegde/calendar.git"
@@ -45,12 +52,12 @@
     "date-picker",
     "react-calendar",
     "accessibility",
-    "accessible-calendar"
+    "accessible-calendar",
+    "react"
   ],
   "author": "Nikhil Hegde",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Nickhegde/calendar/issues"
-  },
-  "homepage": "https://github.com/Nickhegde/calendar#readme"
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { format, addMonths, subMonths } from 'date-fns';
-import { STRINGS, ARIALABELS } from 'consts';
-import { LeftArrow, RightArrow } from 'assets/images';
+import { STRINGS, ARIALABELS } from 'lib/consts';
+import { LeftArrow, RightArrow } from 'lib/assets/images';
 import './Header.scss'
 
 export default function Header({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { nextMonthCheck, prevMonthCheck } }) {

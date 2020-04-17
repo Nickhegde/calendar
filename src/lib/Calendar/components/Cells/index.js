@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays } from 'date-fns';
-import { STRINGS, ARIALABELS } from 'consts';
+import { STRINGS, ARIALABELS } from 'lib/consts';
 import './Cells.scss'
 
 export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { nextMonthCheck, prevMonthCheck } }) {

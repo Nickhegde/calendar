@@ -1,6 +1,6 @@
 import React from 'react';
 import { format, startOfWeek, addDays } from 'date-fns';
-import { STRINGS, ARIALABELS } from 'consts';
+import { STRINGS, ARIALABELS } from 'lib/consts';
 import './Days.scss';
 
 export default function Days({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate } }) {
