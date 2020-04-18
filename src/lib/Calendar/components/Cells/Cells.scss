@@ -15,6 +15,9 @@
         opacity: 0.5;
         cursor: not-allowed;
       }
+      &.disabled:focus{
+        outline: none;
+      }
       &.focus{
         background-color: #e22925;
         font-weight: 600;
@@ -23,6 +26,9 @@
           font-size: 11px;
         }
       }
+      &.highlight-date{
+          border: 1px solid #e22925;
+        }
     }
   }
 }
