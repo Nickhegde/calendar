@@ -52,10 +52,10 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
     } else {
       let newDate;
       if (id <= 1) {
-        newDate = prevMonthCheck ? '' : subMonths(selectedDate, 1);
+        newDate = prevMonthCheck ? '' : endOfMonth(subMonths(selectedDate, 1));
         setToggleMonth(STRINGS.PREV);
       } else {
-        newDate = nextMonthCheck ? '' : addMonths(selectedDate, 1);
+        newDate = nextMonthCheck ? '' : startOfMonth(addMonths(selectedDate, 1));
         setToggleMonth(STRINGS.NEXT);
       }
       if (newDate) {
