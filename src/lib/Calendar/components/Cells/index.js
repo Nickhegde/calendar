@@ -29,6 +29,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
       idArray = id.split('-');
     let nextId, element;
     switch (key) {
+      case 9: e.preventDefault(); return;
       case 37: nextId = Number(idArray[2]) - 1;
         break;
       case 38: nextId = Number(idArray[2]) - 7;
@@ -90,6 +91,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
             id={`day-${format(day, STRINGS.MONTH_FORMAT)}-${formattedDate}`}
             onClick={disableFuture || disablePast ? () => { } : () => onDateClick(cloneDay)}
             onKeyDown={(e) => { onArrowKeyPress(e) }}
+            aria-label={format(day, STRINGS.ARIA_LABEL_DATE_FORMAT)}
           >
             <span className='date' id={`date-${formattedDate}`}>{formattedDate >= 10 ? formattedDate : `0${formattedDate}`}</span>
           </button>
@@ -105,7 +107,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
   });
 
   return (
-    <div className='cell-container'>
+    <div className='cell-container' tabIndex='0'>
       {cells().map((week, index) => {
         return (
           week

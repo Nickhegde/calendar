@@ -4,6 +4,7 @@ export default {
   DATE_FORMAT: 'd',
   PREV_MONTH_CHECK: 'January 2019',
   COMPARE_DATE_FORMAT: 'P',
+  ARIA_LABEL_DATE_FORMAT: 'PPP',
   MONTH_FORMAT: 'MMM',
   PREV: 'Prev',
   NEXT: 'Next'
