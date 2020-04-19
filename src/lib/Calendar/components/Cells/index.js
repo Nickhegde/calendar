@@ -1,67 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays, isAfter, isBefore, isToday } from 'date-fns';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays, isAfter, isBefore, isToday, subDays } from 'date-fns';
 import { STRINGS, ARIALABELS } from 'lib/consts';
 import './Cells.scss';
+import { returnStatement } from '@babel/types';
 
 export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture }, monthCheck: { nextMonthCheck, prevMonthCheck } }) {
 
   const [toggleMonth, setToggleMonth] = useState(false);
 
   useEffect(() => {
-    if (toggleMonth) {
-      const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${toggleMonth === STRINGS.PREV ? format(endOfMonth(selectedDate), STRINGS.DATE_FORMAT) : format(startOfMonth(selectedDate), STRINGS.DATE_FORMAT)}`;
-      document.getElementById(newId).focus();
-      setToggleMonth(false);
-    } else if (format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(currentDate, STRINGS.COMPARE_DATE_FORMAT)) {
-      const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${format(selectedDate, STRINGS.DATE_FORMAT)}`;
-      document.getElementById(newId).focus();
-    }
-  }, [toggleMonth, selectedDate, currentDate])
+    // if (toggleMonth) {
+    //   const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${toggleMonth === STRINGS.PREV ? format(endOfMonth(selectedDate), STRINGS.DATE_FORMAT) : format(startOfMonth(selectedDate), STRINGS.DATE_FORMAT)}`;
+    //   document.getElementById(newId).focus();
+    //   setToggleMonth(false);
+    // } else if (format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(currentDate, STRINGS.COMPARE_DATE_FORMAT)) {
+    const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${format(selectedDate, STRINGS.DATE_FORMAT)}`;
+    document.getElementById(newId).focus();
+    // }
+
+  }, [selectedDate, currentDate])
 
 
   const onDateClick = (cloneDay) => {
     setSelectedDate(cloneDay);
   }
 
-  const onArrowKeyPress = (e) => {
+  const onArrowKeyPress = (e, date) => {
     const key = e.keyCode,
       id = e.target.id,
       idArray = id.split('-');
-    let nextId, element;
+    let nextId, element, newDate;
     switch (key) {
       case 9: e.preventDefault(); return;
-      case 37: nextId = Number(idArray[2]) - 1;
+      case 37: newDate = subDays(selectedDate, 1);
+        nextId = Number(idArray[2]) - 1;
         break;
-      case 38: nextId = Number(idArray[2]) - 7;
+      case 38: newDate = subDays(selectedDate, 7);
+        nextId = Number(idArray[2]) - 7;
         break;
-      case 39: nextId = Number(idArray[2]) + 1;
+      case 39: newDate = addDays(selectedDate, 1);
+        nextId = Number(idArray[2]) + 1;
         break;
-      case 40: nextId = Number(idArray[2]) + 7;
+      case 40: newDate = addDays(selectedDate, 7);
+        nextId = Number(idArray[2]) + 7;
         break;
       default: return;
     }
     if (37 <= key <= 40) {
       element = document.getElementById(`${idArray[0]}-${idArray[1]}-${nextId}`);
-      setFocusDate(element, nextId);
-    }
-  }
-
-  const setFocusDate = (element, id) => {
-    if (element) {
-      if (element.classList.contains('disabled')) return;
-      element.focus();
-    } else {
-      let newDate;
-      if (id <= 1) {
-        newDate = prevMonthCheck ? '' : endOfMonth(subMonths(selectedDate, 1));
-        setToggleMonth(STRINGS.PREV);
-      } else {
-        newDate = nextMonthCheck ? '' : startOfMonth(addMonths(selectedDate, 1));
-        setToggleMonth(STRINGS.NEXT);
-      }
-      if (newDate) {
-        setSelectedDate(newDate);
-      }
+      if (element && element.classList.contains('disabled')) return;
+      setSelectedDate(newDate);
     }
   }
 
@@ -90,7 +78,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
             key={day}
             id={`day-${format(day, STRINGS.MONTH_FORMAT)}-${formattedDate}`}
             onClick={disableFuture || disablePast ? () => { } : () => onDateClick(cloneDay)}
-            onKeyDown={(e) => { onArrowKeyPress(e) }}
+            onKeyDown={(e, cloneDay) => { onArrowKeyPress(e, cloneDay) }}
             aria-label={format(day, STRINGS.ARIA_LABEL_DATE_FORMAT)}
           >
             <span className='date' id={`date-${formattedDate}`}>{formattedDate >= 10 ? formattedDate : `0${formattedDate}`}</span>
