@@ -3,7 +3,7 @@ import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, su
 import { STRINGS, ARIALABELS } from 'lib/consts';
 import './Cells.scss';
 
-export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture }, monthCheck: { nextMonthCheck, prevMonthCheck } }) {
+export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture }, monthCheck: { nextMonthCheck, prevMonthCheck }, themeColor, onDateChange }) {
 
   useEffect(() => {
     const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${format(selectedDate, STRINGS.DATE_FORMAT)}`;
@@ -13,6 +13,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
 
   const onDateClick = (cloneDay) => {
     setSelectedDate(cloneDay);
+    onDateChange(cloneDay);
   }
 
   const onArrowKeyPress = (e, date) => {
@@ -69,6 +70,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
                 ? 'selected' : ''} ${format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? 'focus' : ''}
                 ${format(currentDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? 'highlight-date' : ''}
                 `}
+            style={{ backgroundColor: `${format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? themeColor : ''}` }}
             key={day}
             id={`day-${format(day, STRINGS.MONTH_FORMAT)}-${formattedDate}`}
             onClick={disableFuture || disablePast ? () => { } : () => onDateClick(cloneDay)}

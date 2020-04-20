@@ -1,68 +1,117 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Calendar
 
-In the project directory, you can run:
+A re-usable calendar component for react.
 
-### `npm start`
+![Calendar](src/images/calendar.png "Calendar")
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Installation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The package can be installed via [npm](https://github.com/npm/cli)
 
-### `npm test`
+```
+npm install --save react-accessible-calendar
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ or via [yarn](https://github.com/yarnpkg/yarn)
 
-### `npm run build`
+```
+yarn add react-accessible-calendar
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+React should be included separately since that dependency is not included in the package. Below is the sample of how to use the Calendar in React.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```js
+import React, { useState } from 'react';
+import { Calendar } from 'react-accessible-calendar';
+import './App.css';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+function App() {
+  const [date, setDate] = useState(new Date()),
+    min = '',
+    max = '',
+    blocked = [];
+  return (
+    <div className="App">
+      <Calendar
+        dates={{
+          selectedDate: date,
+          min: min,
+          max: max,
+          blocked: blocked
+        }}
+        themeColor=''
+        onDateChange={setDate}
+      ></Calendar>
+    </div>
+  );
+}
 
-### `npm run eject`
+export default App;
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Configuration
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can pass following props to personalize the Calendar
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+selectedDate: The user can pass the date, that needs to be highlighted.
+```
+```
+min: The minimum date upto which the Calendar should be active. The dates are disabled beyond min date. 
+By default, min date is present date. All the past dates are disabled.
+```
+```
+max: The maximum date upto which the Calendar should be active. The dates are active only upto max date. 
+The dates after max date are disabled.
+```
+```
+The min and max date can be a string in '01/01/2020' format or can be in this new Date('01/01/2020') format.
+```
+```
+blocked: This feature is currently not present in this release. It will be implemented in future release.
+```
+```
+themeColor: The Calendar month-year header background color can be changed using themeColor.
+```
+```
+onDateChange: The user can call a function whenever a date is selected from the calendar.
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### date-fns
 
-## Learn More
+`date-fns` library has been used, which uses native Date objects.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Browser Support
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+It is compatible with latest versions of Chrome, Safari and IE10+.
 
-### Code Splitting
+###Development
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+The master branch contains the latest code of react-accessible-calendar. You can clone the repo and run
 
-### Analyzing the Bundle Size
+```
+npm install
+```
+```
+npm start
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+to run the app.
 
-### Making a Progressive Web App
+### Accessibility
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+#### Keyboard support
 
-### Advanced Configuration
+1. Up arrow key: Moves to previous week.
+2. Down arrow key: Moves to next week.
+3. Left arrow key: Moves to previous day.
+4. Right arrow key: Moves to next day.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Also, `aria-label`s have been added so that the screen readers can read the dates in month-day-year format.
 
-### Deployment
+### Demo
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+You can see the demo here,
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[Calendar](https://accessible-calendar.netlify.app/).
