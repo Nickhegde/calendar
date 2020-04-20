@@ -4,7 +4,7 @@ import { STRINGS, ARIALABELS } from 'lib/consts';
 import { LeftArrow, RightArrow } from 'lib/assets/images';
 import './Header.scss'
 
-export default function Header({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { nextMonthCheck, prevMonthCheck } }) {
+export default function Header({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { nextMonthCheck, prevMonthCheck }, themeColor }) {
 
 
   const prevMonth = () => {
@@ -18,7 +18,7 @@ export default function Header({ currentDate: { currentDate, setCurrentDate }, s
   const month = format(selectedDate, STRINGS.MONTH_YEAR_FORMAT);
 
   return (
-    <div className='header-container flex-container'>
+    <div className='header-container flex-container' style={{ backgroundColor: themeColor }}>
       <button className={`left-arrow ${prevMonthCheck ? 'disabled' : ''}`} onClick={prevMonthCheck ? () => { } : prevMonth} tabIndex='0' aria-label={ARIALABELS.PREV_MONTH_BTN}>
         <LeftArrow />
       </button>

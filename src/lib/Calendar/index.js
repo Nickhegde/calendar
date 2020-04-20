@@ -25,9 +25,9 @@ export default function Calendar({ dates, themeColor, onDateChange }) {
 
   return (
     <div className='calendar-container'>
-      <Header currentDate={{ currentDate, setCurrentDate }} selectDate={{ selectedDate, setSelectedDate }} check={{ nextMonthCheck, prevMonthCheck }}></Header>
-      <Days currentDate={{ currentDate, setCurrentDate }} selectDate={{ selectedDate, setSelectedDate }}></Days>
-      <Cells currentDate={{ currentDate, setCurrentDate }} selectDate={{ selectedDate, setSelectedDate }} check={{ blockPast, blockFuture }} monthCheck={{ nextMonthCheck, prevMonthCheck }}></Cells>
+      <Header currentDate={{ currentDate, setCurrentDate }} selectDate={{ selectedDate, setSelectedDate }} check={{ nextMonthCheck, prevMonthCheck }} themeColor={themeColor}></Header>
+      <Days currentDate={{ currentDate, setCurrentDate }} selectDate={{ selectedDate, setSelectedDate }} themeColor={themeColor}></Days>
+      <Cells currentDate={{ currentDate, setCurrentDate }} selectDate={{ selectedDate, setSelectedDate }} check={{ blockPast, blockFuture }} monthCheck={{ nextMonthCheck, prevMonthCheck }} themeColor={themeColor} onDateChange={onDateChange}></Cells>
       <div className='calendar-triangle'></div>
     </div>
   );

@@ -3,7 +3,7 @@ import { format, startOfWeek, addDays } from 'date-fns';
 import { STRINGS, ARIALABELS } from 'lib/consts';
 import './Days.scss';
 
-export default function Days({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate } }) {
+export default function Days({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, themeColor = { themeColor } }) {
 
   const getDays = (() => {
     let days = [];
@@ -19,7 +19,7 @@ export default function Days({ currentDate: { currentDate, setCurrentDate }, sel
   });
 
   return (
-    <div className='days-container flex-container'>
+    <div className='days-container flex-container' style={{ backgroundColor: themeColor }}>
       {getDays().map((day) => {
         return day;
       })}
