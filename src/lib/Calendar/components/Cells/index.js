@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays, isAfter, isBefore, isToday, subDays } from 'date-fns';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays, isAfter, isBefore, isToday, subDays, isLastDayOfMonth, isFirstDayOfMonth, isSameMonth } from 'date-fns';
 import { STRINGS, ARIALABELS } from 'lib/consts';
 import './Cells.scss';
-import { returnStatement } from '@babel/types';
 
 export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture }, monthCheck: { nextMonthCheck, prevMonthCheck } }) {
 
-  const [toggleMonth, setToggleMonth] = useState(false);
-
   useEffect(() => {
-    // if (toggleMonth) {
-    //   const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${toggleMonth === STRINGS.PREV ? format(endOfMonth(selectedDate), STRINGS.DATE_FORMAT) : format(startOfMonth(selectedDate), STRINGS.DATE_FORMAT)}`;
-    //   document.getElementById(newId).focus();
-    //   setToggleMonth(false);
-    // } else if (format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(currentDate, STRINGS.COMPARE_DATE_FORMAT)) {
     const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${format(selectedDate, STRINGS.DATE_FORMAT)}`;
     document.getElementById(newId).focus();
-    // }
-
   }, [selectedDate, currentDate])
 
 
@@ -33,15 +23,19 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
     switch (key) {
       case 9: e.preventDefault(); return;
       case 37: newDate = subDays(selectedDate, 1);
+        if (!isSameMonth(newDate, selectedDate) && prevMonthCheck) return;
         nextId = Number(idArray[2]) - 1;
         break;
       case 38: newDate = subDays(selectedDate, 7);
+        if (!isSameMonth(newDate, selectedDate) && prevMonthCheck) return;
         nextId = Number(idArray[2]) - 7;
         break;
       case 39: newDate = addDays(selectedDate, 1);
+        if (!isSameMonth(newDate, selectedDate) && nextMonthCheck) return;
         nextId = Number(idArray[2]) + 1;
         break;
       case 40: newDate = addDays(selectedDate, 7);
+        if (!isSameMonth(newDate, selectedDate) && nextMonthCheck) return;
         nextId = Number(idArray[2]) + 7;
         break;
       default: return;
