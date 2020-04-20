@@ -95,7 +95,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
   });
 
   return (
-    <div className='cell-container' tabIndex='0'>
+    <div className='cell-container' tabIndex='0' role='application'>
       {cells().map((week, index) => {
         return (
           week
