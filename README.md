@@ -2,6 +2,7 @@
 ## Calendar
 
 A re-usable calendar component for react.
+
 ![Calendar](src/images/calendar.png "Calendar")
 
 ### Installation
