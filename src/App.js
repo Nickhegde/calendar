@@ -4,8 +4,8 @@ import './App.css';
 
 function App() {
   const [date, setDate] = useState(new Date()),
-    min = '1/1/2019',
-    max = date,
+    min = '',
+    max = '',
     blocked = [];
   return (
     <div className="App">
