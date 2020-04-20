@@ -2,7 +2,7 @@
 ## Calendar
 
 A re-usable calendar component for react.
-![Calendar](https://drive.google.com/file/d/1uDoGl69BtV8nkUnggYZLxQjhX0a38HHI/view?usp=sharing "Calendar")
+![Calendar](src/images/calendar.png "Calendar")
 
 ### Installation
 
