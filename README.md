@@ -58,24 +58,30 @@ You can pass following props to personalize the Calendar
 selectedDate: The user can pass the date, that needs to be highlighted.
 ```
 ```
-min: The minimum date upto which the Calendar should be active. The dates are disabled beyond min date. 
-By default, min date is present date. All the past dates are disabled.
+min: The minimum date upto which the Calendar should be active. The 
+dates are disabled beyond min date. By default, min date is present 
+date. All the past dates are disabled.
 ```
 ```
-max: The maximum date upto which the Calendar should be active. The dates are active only upto max date. 
-The dates after max date are disabled.
+max: The maximum date upto which the Calendar should be active. The 
+dates are active only upto max date. The dates after max date are 
+disabled.
 ```
 ```
-The min and max date can be a string in '01/01/2020' format or can be in this new Date('01/01/2020') format.
+The min and max date can be a string in '01/01/2020' format or can 
+be in this new Date('01/01/2020') format.
 ```
 ```
-blocked: This feature is currently not present in this release. It will be implemented in future release.
+blocked: This feature is currently not present in this release.
+It will be implemented in future release.
 ```
 ```
-themeColor: The Calendar month-year header background color can be changed using themeColor.
+themeColor: The Calendar month-year header background color can
+be changed using themeColor.
 ```
 ```
-onDateChange: The user can call a function whenever a date is selected from the calendar.
+onDateChange: The user can call a function whenever a date is
+selected from the calendar.
 ```
 
 ### date-fns
@@ -88,7 +94,8 @@ It is compatible with latest versions of Chrome, Safari and IE10+.
 
 ###Development
 
-The master branch contains the latest code of react-accessible-calendar. You can clone the repo and run
+The master branch contains the latest code of react-accessible-calendar.
+You can clone the repo and run
 
 ```
 npm install
