@@ -11,6 +11,7 @@
       border: none;
       font-weight: normal;
       color: #000000;
+      box-sizing: border-box;
       &.disabled{
         opacity: 0.5;
         cursor: not-allowed;
@@ -19,15 +20,16 @@
         outline: none;
       }
       &.focus{
-        background-color: #e22925;
+        background-color: darkblue;
         font-weight: 600;
+        border: none !important;
+        outline: none !important;
         .date{
           color: #ffffff;
-          font-size: 11px;
         }
       }
       &.highlight-date{
-          border: 1px solid #e22925;
+          border: 1px solid  darkblue;
         }
     }
   }

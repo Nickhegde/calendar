@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays, isAfter, isBefore, isToday, subDays, isLastDayOfMonth, isFirstDayOfMonth, isSameMonth } from 'date-fns';
-import { STRINGS, ARIALABELS } from 'lib/consts';
+import React, {  useEffect } from 'react';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, addDays, isAfter, isBefore, subDays, isSameMonth } from 'date-fns';
+import { STRINGS } from 'lib/consts';
 import './Cells.scss';
 
-export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture }, monthCheck: { nextMonthCheck, prevMonthCheck }, themeColor, onDateChange }) {
+export default function Cells({ currentDate: { currentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture, blockDates }, monthCheck: { nextMonthCheck, prevMonthCheck }, themeColor, onDateChange }) {
 
   useEffect(() => {
     const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${format(selectedDate, STRINGS.DATE_FORMAT)}`;
@@ -48,6 +48,15 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
     }
   }
 
+ const checkDisableDate = (blockFuture, blockPast, date)=>{
+  const disableFuture = blockFuture && isAfter(new Date(date), blockFuture),
+   disablePast = blockPast && isBefore(new Date(date), blockPast),
+   dateSelected = new Date(date);
+  const disableDate =  blockDates.includes(format(dateSelected, STRINGS.COMPARE_DATE_FORMAT));
+  return (disableFuture || disablePast || disableDate);
+  }
+
+
   const cells = (() => {
     const monthStart = startOfMonth(selectedDate);
     const monthEnd = endOfMonth(monthStart);
@@ -61,11 +70,11 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, STRINGS.DATE_FORMAT);
         const cloneDay = day;
-        const disableFuture = blockFuture && isAfter(new Date(cloneDay), blockFuture) && !isToday(new Date(cloneDay)),
-          disablePast = isBefore(new Date(cloneDay), blockPast) && !isToday(new Date(cloneDay));
+        const disableDate = checkDisableDate(blockFuture, blockPast,cloneDay);
+        
         days.push(
           <button
-            className={`day-cell ${disableFuture || disablePast
+            className={`day-cell ${disableDate
               ? 'disabled' : isSameDay(day, selectedDate)
                 ? 'selected' : ''} ${format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? 'focus' : ''}
                 ${format(currentDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? 'highlight-date' : ''}
@@ -73,7 +82,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
             style={{ backgroundColor: `${format(selectedDate, STRINGS.COMPARE_DATE_FORMAT) === format(cloneDay, STRINGS.COMPARE_DATE_FORMAT) ? themeColor : ''}` }}
             key={day}
             id={`day-${format(day, STRINGS.MONTH_FORMAT)}-${formattedDate}`}
-            onClick={disableFuture || disablePast ? () => { } : () => onDateClick(cloneDay)}
+            onClick={disableDate ? () => { } : () => onDateClick(cloneDay)}
             onKeyDown={(e, cloneDay) => { onArrowKeyPress(e, cloneDay) }}
             aria-label={format(day, STRINGS.ARIA_LABEL_DATE_FORMAT)}
           >

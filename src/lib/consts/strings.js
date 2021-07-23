@@ -1,4 +1,4 @@
-export default {
+const STRINGS= {
   MONTH_YEAR_FORMAT: 'MMMM yyyy',
   DAY_FORMAT: 'EEEEEE',
   DATE_FORMAT: 'd',
@@ -9,3 +9,4 @@ export default {
   PREV: 'Prev',
   NEXT: 'Next'
 }
+export default STRINGS;
