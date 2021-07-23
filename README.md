@@ -72,7 +72,9 @@ The min and max date can be a string in 'MM/DD/YYY' (eg: '01/01/2020') format or
 be in this new Date('MM/DD/YYY') format.
 ```
 ```
-blocked: In the latest release, this feature has been implemented. This parameter takes the array of dates in which each date can be in 'MM/DD/YYYY' format or new Date('MM/DD/YYY') format or mixture of both and those dates will be blocked in the calendar.
+blocked: In the latest release, this feature has been implemented. This parameter takes the
+array of dates in which each date can be in 'MM/DD/YYYY' format or new Date('MM/DD/YYY')
+format or mixture of both and those dates will be blocked in the calendar.
 ```
 ```
 themeColor: The Calendar month-year header background color can
