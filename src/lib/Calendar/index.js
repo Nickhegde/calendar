@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { format, subYears, isFuture } from 'date-fns';
 import { Header, Days, Cells } from './components';
-import { STRINGS, ARIALABELS } from 'lib/consts';
+import { STRINGS } from 'lib/consts';
 import './Calendar.scss';
 
 export default function Calendar({ dates, themeColor, onDateChange }) {
