@@ -6,7 +6,7 @@ function App() {
   const [date, setDate] = useState(new Date()),
     min = '',
     max = '',
-    blocked = [new Date('07/24/2021'), '07/26/2021'];
+    blocked = [];
   return (
     <div className="App">
       <Calendar

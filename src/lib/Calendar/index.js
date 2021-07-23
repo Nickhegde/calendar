@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { format, subYears, isFuture } from 'date-fns';
+import { format, startOfToday } from 'date-fns';
 import { Header, Days, Cells } from './components';
 import { STRINGS } from 'lib/consts';
 import './Calendar.scss';
@@ -13,7 +13,7 @@ export default function Calendar({ dates, themeColor, onDateChange }) {
     blockPast = new Date(dates.min);
   } else {
     prevMonthCheck = format(selectedDate, STRINGS.MONTH_YEAR_FORMAT) === format(currentDate, STRINGS.MONTH_YEAR_FORMAT);
-    blockPast = currentDate;
+    blockPast = new Date(startOfToday());
   }
   if (dates.max) {
     nextMonthCheck = format(selectedDate, STRINGS.MONTH_YEAR_FORMAT) === format(new Date(dates.max), STRINGS.MONTH_YEAR_FORMAT);

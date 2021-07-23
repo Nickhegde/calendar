@@ -1,9 +1,9 @@
 import React from 'react';
 import { format, startOfWeek, addDays } from 'date-fns';
-import { STRINGS, ARIALABELS } from 'lib/consts';
+import { STRINGS } from 'lib/consts';
 import './Days.scss';
 
-export default function Days({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, themeColor = { themeColor } }) {
+export default function Days({ currentDate: { currentDate }, selectDate: { selectedDate, setSelectedDate }, themeColor }) {
 
   const getDays = (() => {
     let days = [];

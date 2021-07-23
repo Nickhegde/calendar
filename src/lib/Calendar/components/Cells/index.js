@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, subMonths, addMonths, addDays, isAfter, isBefore, isToday, subDays, isLastDayOfMonth, isFirstDayOfMonth, isSameMonth } from 'date-fns';
-import { STRINGS, ARIALABELS } from 'lib/consts';
+import React, {  useEffect } from 'react';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, isSameDay, addDays, isAfter, isBefore, subDays, isSameMonth } from 'date-fns';
+import { STRINGS } from 'lib/consts';
 import './Cells.scss';
 
-export default function Cells({ currentDate: { currentDate, setCurrentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture, blockDates }, monthCheck: { nextMonthCheck, prevMonthCheck }, themeColor, onDateChange }) {
+export default function Cells({ currentDate: { currentDate }, selectDate: { selectedDate, setSelectedDate }, check: { blockPast, blockFuture, blockDates }, monthCheck: { nextMonthCheck, prevMonthCheck }, themeColor, onDateChange }) {
 
   useEffect(() => {
     const newId = `day-${format(selectedDate, STRINGS.MONTH_FORMAT)}-${format(selectedDate, STRINGS.DATE_FORMAT)}`;
@@ -50,8 +50,8 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
 
  const checkDisableDate = (blockFuture, blockPast, date)=>{
   const disableFuture = blockFuture && isAfter(new Date(date), blockFuture),
-  disablePast = isBefore(new Date(date), blockPast),
-  dateSelected = new Date(date);
+   disablePast = blockPast && isBefore(new Date(date), blockPast),
+   dateSelected = new Date(date);
   const disableDate =  blockDates.includes(format(dateSelected, STRINGS.COMPARE_DATE_FORMAT));
   return (disableFuture || disablePast || disableDate);
   }
@@ -71,8 +71,7 @@ export default function Cells({ currentDate: { currentDate, setCurrentDate }, se
         formattedDate = format(day, STRINGS.DATE_FORMAT);
         const cloneDay = day;
         const disableDate = checkDisableDate(blockFuture, blockPast,cloneDay);
-         
-    
+        
         days.push(
           <button
             className={`day-cell ${disableDate
